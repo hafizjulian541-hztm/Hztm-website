@@ -1,0 +1,163 @@
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+background:#0b1220;
+color:white;
+}
+
+/* HEADER */
+
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 40px;
+background:#050a16;
+position:sticky;
+top:0;
+z-index:100;
+}
+
+header h2{
+color:gold;
+}
+
+nav a{
+color:white;
+margin-left:20px;
+text-decoration:none;
+font-size:15px;
+transition:0.3s;
+}
+
+nav a:hover{
+color:gold;
+}
+
+/* HERO VIDEO */
+
+.hero{
+position:relative;
+height:90vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+overflow:hidden;
+}
+
+#bgvideo{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+object-fit:cover;
+z-index:-1;
+}
+
+.heroText{
+background:rgba(0,0,0,0.5);
+padding:40px;
+border-radius:10px;
+}
+
+.heroText h1{
+font-size:40px;
+margin-bottom:10px;
+}
+
+.heroText p{
+opacity:0.9;
+}
+
+/* SECTION */
+
+section{
+padding:80px 40px;
+text-align:center;
+}
+
+section h2{
+margin-bottom:20px;
+color:gold;
+}
+
+/* PRODUK */
+
+.produk{
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+gap:30px;
+}
+
+.card{
+background:#111a33;
+padding:25px;
+border-radius:10px;
+width:250px;
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+background:#18244a;
+}
+
+.card h3{
+margin-bottom:10px;
+}
+
+/* BUTTON */
+
+button{
+background:gold;
+border:none;
+padding:10px 20px;
+border-radius:5px;
+cursor:pointer;
+margin-top:10px;
+font-weight:bold;
+}
+
+button:hover{
+background:#ffd700;
+}
+
+/* FORM */
+
+input, textarea{
+width:100%;
+padding:10px;
+margin-top:10px;
+border:none;
+border-radius:5px;
+}
+
+/* PAYMENT */
+
+.payment{
+margin-top:30px;
+}
+
+/* DONASI */
+
+#donasi img{
+margin-top:20px;
+}
+
+/* FOOTER */
+
+footer{
+background:#050a16;
+padding:30px;
+text-align:center;
+font-size:14px;
+opacity:0.7;
+}
