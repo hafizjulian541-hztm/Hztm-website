@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HZTM — Horizon Zetta Teknologi Mandiri</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- ══ NAVIGATION ══ -->
+<nav>
+  <a class="nav-logo" onclick="showPage('home')">
+    <div class="nav-logo-icon">HZ</div>
+    <div class="nav-brand">HZTM <span>Horizon Zetta Teknologi Mandiri</span></div>
+  </a>
+  <div class="nav-links">
+    <button class="nav-btn active" onclick="showPage('home')" data-page="home">Home</button>
+    <button class="nav-btn" onclick="showPage('marketplace')" data-page="marketplace">Marketplace</button>
+    <button class="nav-btn" onclick="showPage('bantuan')" data-page="bantuan">Bantuan</button>
+    <button class="nav-btn" onclick="showPage('donasi')" data-page="donasi">Donasi</button>
+  </div>
+</nav>
+
+<!-- ══ NOTIFICATION ══ -->
+<div class="notif" id="notif"></div>
+
+<!-- ══ MODAL ANSWER ══ -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <h3>// JAWAB PERTANYAAN</h3>
+    <input type="hidden" id="modal-qa-id"/>
+    <div class="form-group">
+      <label class="form-label">PERTANYAAN</label>
+      <div id="modal-question" style="font-size:0.9rem;color:var(--text-dim);padding:0.75rem;background:var(--bg-card);border:1px solid var(--border);"></div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">JAWABAN ADMIN <span>*</span></label>
+      <textarea class="form-textarea" id="modal-answer" placeholder="Tulis jawaban..."></textarea>
+    </div>
+    <div class="modal-btns">
+      <button class="btn btn-secondary btn-sm" onclick="closeModal()">Batal</button>
+      <button class="btn btn-primary btn-sm" onclick="submitAnswer()">Kirim Jawaban</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ -->
+<!-- PAGE: HOME                    -->
+<!-- ══════════════════════════════ -->
+<div class="page active" id="page-home">
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <img id="hero-bg-img" src="" alt="" onerror="this.style.display='none'"/>
+
+    <div class="hero-badge">SISTEM AKTIF · LAWANG, MALANG</div>
+
+    <h1 class="hero-title">
+      HZTM
+      <span>TEKNOLOGI</span>
+    </h1>
+    <p class="hero-subtitle">Horizon Zetta Teknologi Mandiri · Est. 2026</p>
+
+    <p class="hero-desc">
+      Platform marketplace lokal komponen elektronika, IoT, dan alat rakitan.
+      Sistem pemesanan COD sederhana, aman, dan profesional — khusus area Kecamatan Lawang, Kabupaten Malang.
+    </p>
+
+    <div class="hero-tags">
+      <span class="hero-tag">Elektronika</span>
+      <span class="hero-tag">Internet of Things</span>
+      <span class="hero-tag">Programming</span>
+      <span class="hero-tag">Marketplace Lokal</span>
+    </div>
+
+    <div class="hero-cta">
+      <button class="btn btn-primary" onclick="showPage('marketplace')">
+        ▸ Lihat Marketplace
+      </button>
+      <button class="btn btn-secondary" onclick="showPage('bantuan')">
+        Bantuan & Pertanyaan
+      </button>
+    </div>
+  </section>
+
+  <!-- Q&A Publik -->
+  <div class="section">
+    <div class="section-label">PUBLIC Q&A</div>
+    <h2 class="section-title">Pertanyaan & Jawaban</h2>
+    <p style="color:var(--text-dim);font-size:0.88rem;margin-bottom:2rem;">
+      Pertanyaan yang sudah dijawab admin akan tampil di sini untuk referensi bersama.
+    </p>
+
+    <div class="qa-list" id="qa-public-list">
+      <div class="qa-empty" id="qa-empty">
+        // BELUM ADA PERTANYAAN —<br>Jadilah yang pertama bertanya!
+      </div>
+    </div>
+
+    <div style="margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap;">
+      <button class="btn btn-secondary" onclick="showPage('bantuan')">
+        + Kirim Pertanyaan
+      </button>
+      <button class="btn btn-secondary" onclick="showPage('donasi')">
+        ♥ Dukung HZTM
+      </button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-copy">© HZTM 2026 — Horizon Zetta Teknologi Mandiri</div>
+      <a class="footer-email" href="mailto:hztm2243@gmail.com">hztm2243@gmail.com</a>
+      <button class="footer-admin-btn" onclick="showPage('admin')">[ ADMIN ]</button>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════ -->
+<!-- PAGE: MARKETPLACE             -->
+<!-- ══════════════════════════════ -->
+<div class="page" id="page-marketplace">
+  <div class="page-header">
+    <div class="section-label">STORE</div>
+    <h1>Marketplace</h1>
+    <p>Komponen elektronika, modul IoT, dan alat rakitan — COD area Kecamatan Lawang</p>
+  </div>
+
+  <div class="section" style="padding-top:0;">
+    <div class="info-box">
+      <h3>⚠ KETENTUAN PEMESANAN</h3>
+      <ul>
+        <li>Hanya melayani area <strong style="color:var(--text);">Kecamatan Lawang, Kabupaten Malang</strong></li>
+        <li>Sistem pembelian hanya melayani <strong style="color:var(--text);">COD (Cash on Delivery)</strong></li>
+        <li>Pembeli wajib mencantumkan <strong style="color:var(--text);">nomor WhatsApp aktif</strong></li>
+        <li>Nomor admin hanya diberikan setelah pesanan masuk & diproses</li>
+        <li>Luar daerah Lawang: <strong style="color:var(--text);">datang langsung</strong> ke tempat, tidak melayani online</li>
+        <li>Ongkir tidak dihitung — sistem utama adalah COD</li>
+        <li>Gratis ongkir khusus teman sekitar Lawang (jika diperlukan)</li>
+      </ul>
+    </div>
+
+    <div style="display:flex;justify-content:flex-end;margin-bottom:1.5rem;">
+      <button class="btn btn-primary" onclick="showPage('order')">
+        ▸ Buat Pesanan
+      </button>
+    </div>
+
+    <div class="cards-grid" id="product-list">
+      <div style="grid-column:1/-1;text-align:center;padding:4rem;color:var(--text-dim);font-family:'Share Tech Mono',monospace;font-size:0.8rem;border:1px dashed var(--border);">
+        // BELUM ADA PRODUK —<br>Admin belum menambahkan produk.
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-copy">© HZTM 2026</div>
+      <a class="footer-email" href="mailto:hztm2243@gmail.com">hztm2243@gmail.com</a>
+      <button class="footer-admin-btn" onclick="showPage('admin')">[ ADMIN ]</button>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════ -->
+<!-- PAGE: ORDER                   -->
+<!-- ══════════════════════════════ -->
+<div class="page" id="page-order">
+  <div class="page-header">
+    <div class="section-label">ORDER</div>
+    <h1>Buat Pesanan</h1>
+    <p>Isi formulir dengan lengkap dan benar. Pesanan akan diproses oleh admin.</p>
+  </div>
+
+  <div class="section" style="padding-top:0;">
+    <div class="form-container">
+      <div class="form-group">
+        <label class="form-label">NAMA LENGKAP <span>*</span></label>
+        <input type="text" class="form-input" id="order-name" placeholder="Nama lengkap Anda"/>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">NOMOR WHATSAPP <span>*</span></label>
+        <input type="tel" class="form-input" id="order-wa" placeholder="Contoh: 08123456789"/>
+        <div class="form-addon">Nomor aktif — admin akan menghubungi melalui WhatsApp</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">KODE PRODUK <span>*</span></label>
+        <input type="text" class="form-input" id="order-code" placeholder="Contoh: HZTM-001" style="font-family:'Share Tech Mono',monospace;letter-spacing:0.1em;"/>
+        <div class="form-addon">Lihat kode produk di halaman Marketplace</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">JUMLAH PESANAN <span>*</span></label>
+        <input type="number" class="form-input" id="order-qty" placeholder="1" min="1" value="1"/>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">ALAMAT — JALAN / DUSUN / GANG <span>*</span></label>
+        <input type="text" class="form-input" id="order-address" placeholder="Jl. Contoh No. 1, Dusun/Gang ..."/>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-top:0.5rem;">
+          <input type="text" class="form-input" id="order-rtrw" placeholder="RT/RW (opsional)"/>
+          <input type="text" class="form-input" id="order-patokan" placeholder="Patokan rumah (opsional)"/>
+        </div>
+        <div class="address-suffix">+ Kecamatan Lawang, Kabupaten Malang (otomatis)</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">CATATAN TAMBAHAN</label>
+        <textarea class="form-textarea" id="order-note" placeholder="Catatan khusus (opsional)..."></textarea>
+      </div>
+
+      <div style="display:flex;gap:1rem;margin-top:1.5rem;flex-wrap:wrap;">
+        <button class="btn btn-primary" id="btn-submit-order" onclick="submitOrder()">▸ Kirim Pesanan</button>
+        <button class="btn btn-secondary" onclick="showPage('marketplace')">← Kembali</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-copy">© HZTM 2026</div>
+      <a class="footer-email" href="mailto:hztm2243@gmail.com">hztm2243@gmail.com</a>
+      <button class="footer-admin-btn" onclick="showPage('admin')">[ ADMIN ]</button>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════ -->
+<!-- PAGE: BANTUAN                 -->
+<!-- ══════════════════════════════ -->
+<div class="page" id="page-bantuan">
+  <div class="page-header">
+    <div class="section-label">SUPPORT</div>
+    <h1>Bantuan & Pertanyaan</h1>
+    <p>Pertanyaan akan dijawab admin dan ditampilkan di halaman utama sebagai referensi.</p>
+  </div>
+
+  <div class="section" style="padding-top:0;">
+    <div class="form-container">
+      <div class="form-group">
+        <label class="form-label">NAMA (OPSIONAL)</label>
+        <input type="text" class="form-input" id="qa-name" placeholder="Nama Anda (bisa anonim)"/>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">PERTANYAAN / KENDALA <span>*</span></label>
+        <textarea class="form-textarea" id="qa-question" placeholder="Tulis pertanyaan, bantuan, atau kendala pesanan Anda di sini..." style="min-height:140px;"></textarea>
+      </div>
+
+      <button class="btn btn-primary" onclick="submitQuestion()">▸ Kirim Pertanyaan</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-copy">© HZTM 2026</div>
+      <a class="footer-email" href="mailto:hztm2243@gmail.com">hztm2243@gmail.com</a>
+      <button class="footer-admin-btn" onclick="showPage('admin')">[ ADMIN ]</button>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════ -->
+<!-- PAGE: DONASI                  -->
+<!-- ══════════════════════════════ -->
+<div class="page" id="page-donasi">
+  <div class="page-header">
+    <div class="section-label">SUPPORT US</div>
+    <h1>Dukungan Donasi</h1>
+    <p>Bantu pengembangan HZTM dan project teknologi lokal</p>
+  </div>
+
+  <div class="section" style="padding-top:0;">
+    <div class="donate-box">
+      <div class="donate-icon">⚡</div>
+      <div class="donate-title">Dukung HZTM</div>
+      <div class="donate-desc">
+        Donasi Anda membantu pengembangan website, pembelian komponen untuk riset,
+        dan project teknologi lokal Lawang yang lebih baik.
+        Setiap dukungan sangat berarti bagi kami.
+      </div>
+      <a id="donate-link" href="#" class="btn btn-orange" target="_blank" onclick="handleDonateClick(event)">
+        ♥ Donasi Sekarang
+      </a>
+      <div style="margin-top:1.5rem;font-family:'Share Tech Mono',monospace;font-size:0.7rem;color:var(--text-dim);">
+        Anda akan diarahkan ke halaman donasi eksternal
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-copy">© HZTM 2026</div>
+      <a class="footer-email" href="mailto:hztm2243@gmail.com">hztm2243@gmail.com</a>
+      <button class="footer-admin-btn" onclick="showPage('admin')">[ ADMIN ]</button>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════ -->
+<!-- PAGE: ADMIN                   -->
+<!-- ══════════════════════════════ -->
+<div class="page" id="page-admin">
+
+  <!-- LOGIN -->
+  <div id="admin-login-wrap">
+    <div class="admin-login">
+      <h2>// ADMIN LOGIN</h2>
+      <div class="form-group">
+        <label class="form-label">PASSWORD <span>*</span></label>
+        <input type="password" class="form-input" id="admin-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')adminLogin()"/>
+      </div>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:0.5rem;" onclick="adminLogin()">▸ Masuk</button>
+      <button class="btn btn-secondary" style="width:100%;justify-content:center;margin-top:0.75rem;" onclick="showPage('home')">← Kembali</button>
+    </div>
+  </div>
+
+  <!-- PANEL -->
+  <div id="admin-panel-wrap" style="display:none;">
+    <div class="admin-panel" style="padding-top:80px;">
+
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;flex-wrap:wrap;gap:1rem;">
+        <div>
+          <div class="section-label">ADMIN PANEL</div>
+          <h2 style="font-family:'Orbitron',sans-serif;font-size:1.2rem;">Kelola HZTM</h2>
+        </div>
+        <div style="display:flex;gap:0.75rem;">
+          <button class="btn btn-secondary btn-sm" onclick="showPage('home')">← Home</button>
+          <button class="btn btn-secondary btn-sm" onclick="adminLogout()">Logout</button>
+        </div>
+      </div>
+
+      <div class="admin-tabs">
+        <button class="admin-tab active" onclick="switchAdminTab('pesanan')">Pesanan</button>
+        <button class="admin-tab" onclick="switchAdminTab('produk')">Produk</button>
+        <button class="admin-tab" onclick="switchAdminTab('tambah-produk')">+ Produk</button>
+        <button class="admin-tab" onclick="switchAdminTab('qa')">Q&A</button>
+        <button class="admin-tab" onclick="switchAdminTab('pengaturan')">Pengaturan</button>
+      </div>
+
+      <!-- TAB: PESANAN -->
+      <div class="admin-section active" id="tab-pesanan">
+        <h3 style="font-family:'Orbitron',sans-serif;font-size:0.85rem;color:var(--accent);margin-bottom:1.5rem;">PESANAN MASUK</h3>
+        <div style="overflow-x:auto;">
+          <table class="admin-table" id="orders-table">
+            <thead>
+              <tr>
+                <th>Waktu</th>
+                <th>Nama</th>
+                <th>WA</th>
+                <th>Produk</th>
+                <th>Qty</th>
+                <th>Alamat</th>
+                <th>Status</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="orders-tbody">
+              <tr><td colspan="8" style="text-align:center;color:var(--text-dim);font-family:'Share Tech Mono',monospace;font-size:0.75rem;">Belum ada pesanan</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TAB: PRODUK -->
+      <div class="admin-section" id="tab-produk">
+        <h3 style="font-family:'Orbitron',sans-serif;font-size:0.85rem;color:var(--accent);margin-bottom:1.5rem;">DAFTAR PRODUK</h3>
+        <div style="overflow-x:auto;">
+          <table class="admin-table" id="products-table">
+            <thead>
+              <tr>
+                <th>Kode</th>
+                <th>Nama</th>
+                <th>Harga</th>
+                <th>Stok</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="products-tbody">
+              <tr><td colspan="5" style="text-align:center;color:var(--text-dim);font-family:'Share Tech Mono',monospace;font-size:0.75rem;">Belum ada produk</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TAB: TAMBAH PRODUK -->
+      <div class="admin-section" id="tab-tambah-produk">
+        <h3 style="font-family:'Orbitron',sans-serif;font-size:0.85rem;color:var(--accent);margin-bottom:1.5rem;" id="add-product-title">TAMBAH PRODUK BARU</h3>
+        <input type="hidden" id="edit-product-id"/>
+        <div class="admin-form-grid">
+          <div class="form-group">
+            <label class="form-label">KODE PRODUK <span>*</span></label>
+            <input type="text" class="form-input" id="p-code" placeholder="HZTM-001" style="font-family:'Share Tech Mono',monospace;"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">NAMA PRODUK <span>*</span></label>
+            <input type="text" class="form-input" id="p-name" placeholder="Nama produk"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">HARGA <span>*</span></label>
+            <input type="text" class="form-input" id="p-price" placeholder="Rp 25.000"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">STATUS STOK</label>
+            <select class="form-select form-input" id="p-stock">
+              <option value="tersedia">Tersedia</option>
+              <option value="habis">Habis</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">DESKRIPSI SINGKAT</label>
+          <textarea class="form-textarea" id="p-desc" placeholder="Deskripsi produk..." style="min-height:80px;"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">FOTO PRODUK</label>
+          <div class="upload-area" onclick="document.getElementById('p-img-input').click()">
+            <input type="file" id="p-img-input" accept="image/*" onchange="previewImg(event)"/>
+            <div>Klik untuk upload foto (JPG/PNG/WEBP)</div>
+            <img id="img-preview"/>
+          </div>
+          <input type="hidden" id="p-img-data"/>
+        </div>
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+          <button class="btn btn-primary" onclick="saveProduct()">▸ Simpan Produk</button>
+          <button class="btn btn-secondary" onclick="cancelEdit()">Batal</button>
+        </div>
+      </div>
+
+      <!-- TAB: Q&A -->
+      <div class="admin-section" id="tab-qa">
+        <h3 style="font-family:'Orbitron',sans-serif;font-size:0.85rem;color:var(--accent);margin-bottom:1.5rem;">PERTANYAAN PENGGUNA</h3>
+        <div id="qa-admin-list">
+          <p style="color:var(--text-dim);font-family:'Share Tech Mono',monospace;font-size:0.75rem;">Belum ada pertanyaan</p>
+        </div>
+      </div>
+
+      <!-- TAB: PENGATURAN -->
+      <div class="admin-section" id="tab-pengaturan">
+        <h3 style="font-family:'Orbitron',sans-serif;font-size:0.85rem;color:var(--accent);margin-bottom:1.5rem;">PENGATURAN</h3>
+
+        <div class="form-group" style="max-width:500px;">
+          <label class="form-label">GANTI PASSWORD ADMIN</label>
+          <input type="password" class="form-input" id="new-pass" placeholder="Password baru"/>
+          <input type="password" class="form-input" id="confirm-pass" placeholder="Konfirmasi password baru" style="margin-top:0.5rem;"/>
+          <button class="btn btn-secondary btn-sm" onclick="changePassword()" style="margin-top:0.75rem;">Ganti Password</button>
+        </div>
+
+        <div class="form-group" style="max-width:500px;margin-top:2rem;">
+          <label class="form-label">BACKGROUND / HEADER IMAGE (URL)</label>
+          <input type="text" class="form-input" id="bg-url" placeholder="https://..." value=""/>
+          <div class="form-addon">Masukkan URL gambar untuk background halaman utama</div>
+          <button class="btn btn-secondary btn-sm" onclick="saveBgUrl()" style="margin-top:0.75rem;">Simpan Background</button>
+        </div>
+
+        <div class="form-group" style="max-width:500px;margin-top:2rem;">
+          <label class="form-label">LINK DONASI</label>
+          <input type="text" class="form-input" id="donate-url-input" placeholder="https://saweria.co/..." value=""/>
+          <button class="btn btn-secondary btn-sm" onclick="saveDonateUrl()" style="margin-top:0.75rem;">Simpan Link Donasi</button>
+        </div>
+      </div>
+
+    </div><!-- /admin-panel -->
+  </div><!-- /admin-panel-wrap -->
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-copy">© HZTM 2026 — Admin Panel</div>
+      <a class="footer-email" href="mailto:hztm2243@gmail.com">hztm2243@gmail.com</a>
+    </div>
+  </footer>
+</div>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
