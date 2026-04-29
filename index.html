@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<!-- ══ NAVIGATION ══ -->
+<!-- ══ NAVBAR ══ -->
 <nav>
   <a class="nav-logo" onclick="showPage('home')">
     <div class="nav-logo-icon">HZ</div>
@@ -20,24 +20,24 @@
     <button class="nav-btn" onclick="showPage('bantuan')" data-page="bantuan">Bantuan</button>
     <button class="nav-btn" onclick="showPage('donasi')" data-page="donasi">Donasi</button>
   </div>
-  <div class="nav-user-area">
-    <div id="nav-user-btn"></div>
+  <div id="nav-user-area">
+    <button class="btn btn-secondary btn-sm" onclick="openModal('modal-login')">Login</button>
   </div>
 </nav>
 
 <!-- ══ USER DROPDOWN ══ -->
-<div class="user-dropdown" id="user-dropdown" style="display:none;">
-  <div class="user-dropdown-info">
-    <img id="ud-photo" src="" alt="" style="width:36px;height:36px;border-radius:50%;border:1px solid var(--border);"/>
+<div class="user-dropdown" id="user-dropdown">
+  <div class="ud-info">
+    <img id="ud-photo" src="" alt="" onerror="this.style.display='none'"/>
     <div>
-      <div id="ud-name" style="font-weight:700;font-size:0.9rem;"></div>
-      <div id="ud-email" style="font-size:0.7rem;color:var(--text-dim);font-family:'Share Tech Mono',monospace;"></div>
+      <div class="ud-name" id="ud-name"></div>
+      <div class="ud-email" id="ud-email"></div>
     </div>
   </div>
-  <hr style="border-color:var(--border);margin:0.75rem 0;"/>
-  <button class="ud-btn" onclick="showPage('pesanan');closeDropdown()">📦 Pesanan Saya</button>
-  <button class="ud-btn" id="ud-logout-btn" onclick="logoutUser()">↩ Logout</button>
-  <hr style="border-color:var(--border);margin:0.75rem 0;"/>
+  <hr class="ud-divider"/>
+  <button class="ud-btn" onclick="showPage('pesanan'); document.getElementById('user-dropdown').style.display='none';">📦 Pesanan Saya</button>
+  <button class="ud-btn" onclick="logoutUser()">↩ Logout</button>
+  <hr class="ud-divider"/>
   <button class="ud-btn ud-btn-danger" onclick="confirmDeleteAccount()">🗑 Hapus Akun</button>
 </div>
 
@@ -48,12 +48,19 @@
 <div class="modal-overlay" id="modal-login">
   <div class="modal">
     <h3>// MASUK KE HZTM</h3>
-    <p style="color:var(--text-dim);font-size:0.88rem;margin-bottom:1.5rem;">Login dengan akun Google untuk melanjutkan.</p>
+    <p style="color:var(--dim);font-size:.88rem;margin-bottom:1.5rem;line-height:1.6;">
+      Login dengan akun Google untuk memesan produk dan melihat status pesanan.
+    </p>
     <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="loginGoogle()">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/>
+        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+      </svg>
       Masuk dengan Google
     </button>
-    <button class="btn btn-secondary" style="width:100%;justify-content:center;margin-top:0.75rem;" onclick="closeModalLogin()">Batal</button>
+    <button class="btn btn-secondary" style="width:100%;justify-content:center;margin-top:.75rem;" onclick="closeModal('modal-login')">Batal</button>
   </div>
 </div>
 
@@ -61,80 +68,89 @@
 <div class="modal-overlay" id="modal-setname">
   <div class="modal">
     <h3>// SELAMAT DATANG!</h3>
-    <p style="color:var(--text-dim);font-size:0.88rem;margin-bottom:1.5rem;">Masukkan nama yang akan ditampilkan di HZTM.</p>
+    <p style="color:var(--dim);font-size:.88rem;margin-bottom:1.5rem;">Masukkan nama yang akan ditampilkan di HZTM.</p>
     <div class="form-group">
       <label class="form-label">NAMA LENGKAP <span>*</span></label>
-      <input type="text" class="form-input" id="input-displayname" placeholder="Nama kamu..."/>
+      <input type="text" class="form-input" id="input-displayname" placeholder="Nama kamu..." onkeydown="if(event.key==='Enter')saveDisplayName()"/>
     </div>
-    <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:0.5rem;" onclick="saveDisplayName()">▸ Simpan & Lanjutkan</button>
+    <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:.5rem;" onclick="saveDisplayName()">
+      ▸ Simpan & Lanjutkan
+    </button>
   </div>
 </div>
 
-<!-- ══ MODAL: ANSWER ══ -->
+<!-- ══ MODAL: JAWAB Q&A ══ -->
 <div class="modal-overlay" id="modal-overlay">
   <div class="modal">
     <h3>// JAWAB PERTANYAAN</h3>
     <input type="hidden" id="modal-qa-id"/>
     <div class="form-group">
       <label class="form-label">PERTANYAAN</label>
-      <div id="modal-question" style="font-size:0.9rem;color:var(--text-dim);padding:0.75rem;background:var(--bg-card);border:1px solid var(--border);"></div>
+      <div id="modal-question" style="font-size:.88rem;color:var(--dim);padding:.75rem;background:var(--bg-card);border:1px solid var(--border);line-height:1.5;"></div>
     </div>
     <div class="form-group">
       <label class="form-label">JAWABAN <span>*</span></label>
       <textarea class="form-textarea" id="modal-answer" placeholder="Tulis jawaban..."></textarea>
     </div>
     <div class="modal-btns">
-      <button class="btn btn-secondary btn-sm" onclick="closeModal()">Batal</button>
+      <button class="btn btn-secondary btn-sm" onclick="closeModal('modal-overlay')">Batal</button>
       <button class="btn btn-primary btn-sm" onclick="submitAnswer()">Kirim Jawaban</button>
     </div>
   </div>
 </div>
 
-<!-- ══ MODAL: DELETE ACCOUNT ══ -->
+<!-- ══ MODAL: HAPUS AKUN ══ -->
 <div class="modal-overlay" id="modal-delete-account">
   <div class="modal">
-    <h3 style="color:#ff4444;">⚠ HAPUS AKUN</h3>
-    <p style="color:var(--text-dim);font-size:0.88rem;margin-bottom:1.5rem;line-height:1.6;">
-      Akun kamu akan dihapus permanen. Data pesanan lama tetap tersimpan di sistem admin dengan keterangan <em>"User telah menghapus akun"</em>.<br><br>
-      Aksi ini <strong style="color:#ff4444;">tidak dapat dibatalkan</strong>.
+    <h3 style="color:var(--red);">⚠ HAPUS AKUN</h3>
+    <p style="color:var(--dim);font-size:.88rem;margin-bottom:1.5rem;line-height:1.65;">
+      Akun kamu akan dihapus permanen. Data pesanan lama tetap tersimpan di sistem admin
+      dengan keterangan <em>"User telah menghapus akun"</em>.<br/><br/>
+      Aksi ini <strong style="color:var(--red);">tidak dapat dibatalkan</strong>.
     </p>
     <div class="modal-btns">
-      <button class="btn btn-secondary btn-sm" onclick="closeModalId('modal-delete-account')">Batal</button>
-      <button class="btn btn-sm" style="background:#ff4444;color:#fff;" onclick="deleteAccount()">Ya, Hapus Akun</button>
+      <button class="btn btn-secondary btn-sm" onclick="closeModal('modal-delete-account')">Batal</button>
+      <button class="btn btn-sm" style="background:var(--red);color:#fff;clip-path:none;" onclick="deleteAccount()">Ya, Hapus Akun</button>
     </div>
   </div>
 </div>
 
-<!-- ══ MODAL: CANCEL ORDER (USER) ══ -->
+<!-- ══ MODAL: AJUKAN BATAL ══ -->
 <div class="modal-overlay" id="modal-cancel-order">
   <div class="modal">
     <h3>// AJUKAN PEMBATALAN</h3>
-    <p style="color:var(--text-dim);font-size:0.88rem;margin-bottom:1rem;">Pembatalan perlu dikonfirmasi admin. Tulis alasan pembatalan:</p>
+    <p style="color:var(--dim);font-size:.88rem;margin-bottom:1rem;line-height:1.5;">Pembatalan perlu dikonfirmasi admin. Tulis alasan pembatalan:</p>
     <input type="hidden" id="cancel-order-id"/>
     <div class="form-group">
       <textarea class="form-textarea" id="cancel-reason" placeholder="Alasan pembatalan..."></textarea>
     </div>
     <div class="modal-btns">
-      <button class="btn btn-secondary btn-sm" onclick="closeModalId('modal-cancel-order')">Tutup</button>
-      <button class="btn btn-sm" style="background:#ff4444;color:#fff;" onclick="submitCancelRequest()">Ajukan Pembatalan</button>
+      <button class="btn btn-secondary btn-sm" onclick="closeModal('modal-cancel-order')">Tutup</button>
+      <button class="btn btn-sm btn-cancel-order" onclick="submitCancelRequest()">Ajukan Pembatalan</button>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════ -->
-<!-- PAGE: HOME                    -->
-<!-- ══════════════════════════════ -->
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE: HOME                            -->
+<!-- ══════════════════════════════════════ -->
 <div class="page active" id="page-home">
   <section class="hero">
     <div class="hero-bg"></div>
-    <img id="hero-bg-img" src="" alt="" onerror="this.style.display='none'"/>
-    <div class="hero-badge" id="admin-status-badge">
+    <img id="hero-bg-img" src="" alt="" style="display:none;" onerror="this.style.display='none'"/>
+
+    <div class="hero-badge">
       <span class="badge-dot" id="badge-dot"></span>
       <span id="badge-text">Memuat...</span>
     </div>
+
     <h1 class="hero-title">HZTM<span>TEKNOLOGI</span></h1>
     <p class="hero-subtitle">Horizon Zetta Teknologi Mandiri · Est. 2026</p>
-    <p class="hero-desc">Platform marketplace lokal komponen elektronika, IoT, dan alat rakitan. Sistem pemesanan COD sederhana, aman, dan profesional — khusus area Kecamatan Lawang, Kabupaten Malang.</p>
+    <p class="hero-desc">
+      Platform marketplace lokal komponen elektronika, IoT, dan alat rakitan.
+      Sistem pemesanan COD sederhana, aman, dan profesional —
+      khusus area Kecamatan Lawang, Kabupaten Malang.
+    </p>
     <div class="hero-tags">
       <span class="hero-tag">Elektronika</span>
       <span class="hero-tag">Internet of Things</span>
@@ -147,10 +163,13 @@
     </div>
   </section>
 
+  <!-- Q&A Publik -->
   <div class="section">
     <div class="section-label">PUBLIC Q&A</div>
     <h2 class="section-title">Pertanyaan & Jawaban</h2>
-    <p style="color:var(--text-dim);font-size:0.88rem;margin-bottom:2rem;">Pertanyaan yang sudah dijawab admin akan tampil di sini.</p>
+    <p style="color:var(--dim);font-size:.88rem;margin-bottom:2rem;">
+      Pertanyaan yang sudah dijawab admin tampil di sini sebagai referensi bersama.
+    </p>
     <div class="qa-list" id="qa-public-list">
       <div class="qa-empty" id="qa-empty">// BELUM ADA PERTANYAAN — Jadilah yang pertama bertanya!</div>
     </div>
@@ -164,14 +183,14 @@
     <div class="footer-inner">
       <div class="footer-copy">© HZTM 2026 — Horizon Zetta Teknologi Mandiri</div>
       <a class="footer-email" href="mailto:hztm2243@gmail.com">hztm2243@gmail.com</a>
-      <button class="footer-admin-btn" id="footer-admin-btn" onclick="handleAdminBtn()">[ ADMIN ]</button>
+      <button class="footer-admin-btn" onclick="handleAdminBtn()">[ ADMIN ]</button>
     </div>
   </footer>
 </div>
 
-<!-- ══════════════════════════════ -->
-<!-- PAGE: MARKETPLACE             -->
-<!-- ══════════════════════════════ -->
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE: MARKETPLACE                     -->
+<!-- ══════════════════════════════════════ -->
 <div class="page" id="page-marketplace">
   <div class="page-header">
     <div class="section-label">STORE</div>
@@ -185,18 +204,17 @@
         <li>Hanya melayani area <strong style="color:var(--text);">Kecamatan Lawang, Kabupaten Malang</strong></li>
         <li>Sistem pembelian hanya melayani <strong style="color:var(--text);">COD (Cash on Delivery)</strong></li>
         <li>Pembeli wajib mencantumkan <strong style="color:var(--text);">nomor WhatsApp aktif</strong></li>
-        <li>Nomor admin hanya diberikan setelah pesanan dikonfirmasi</li>
+        <li>Nomor admin diberikan setelah pesanan dikonfirmasi</li>
         <li>Luar daerah Lawang: <strong style="color:var(--text);">datang langsung</strong> ke tempat</li>
         <li>Sistem COD — ongkir tidak dihitung</li>
+        <li>Wajib login untuk membuat pesanan</li>
       </ul>
     </div>
     <div style="display:flex;justify-content:flex-end;margin-bottom:1.5rem;">
       <button class="btn btn-primary" onclick="goToOrder()">▸ Buat Pesanan</button>
     </div>
     <div class="cards-grid" id="product-list">
-      <div style="grid-column:1/-1;text-align:center;padding:4rem;color:var(--text-dim);font-family:'Share Tech Mono',monospace;font-size:0.8rem;border:1px dashed var(--border);">
-        // MEMUAT PRODUK...
-      </div>
+      <div class="empty-state">// MEMUAT PRODUK...</div>
     </div>
   </div>
   <footer><div class="footer-inner">
@@ -206,48 +224,50 @@
   </div></footer>
 </div>
 
-<!-- ══════════════════════════════ -->
-<!-- PAGE: ORDER                   -->
-<!-- ══════════════════════════════ -->
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE: ORDER                           -->
+<!-- ══════════════════════════════════════ -->
 <div class="page" id="page-order">
   <div class="page-header">
     <div class="section-label">ORDER</div>
     <h1>Buat Pesanan</h1>
-    <p>Isi formulir dengan lengkap dan benar.</p>
+    <p>Isi formulir dengan lengkap dan benar. Pesanan akan diproses oleh admin.</p>
   </div>
   <div class="section" style="padding-top:0;">
     <div class="form-container">
+
       <div class="form-group">
         <label class="form-label">NOMOR WHATSAPP <span>*</span></label>
         <input type="tel" class="form-input" id="order-wa" placeholder="Contoh: 08123456789"/>
         <div class="form-addon">Admin akan menghubungi via WhatsApp setelah pesanan dikonfirmasi</div>
       </div>
+
       <div class="form-group">
         <label class="form-label">ALAMAT — JALAN / DUSUN / GANG <span>*</span></label>
-        <input type="text" class="form-input" id="order-address" placeholder="Jl. Contoh No. 1 ..."/>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-top:0.5rem;">
+        <input type="text" class="form-input" id="order-address" placeholder="Jl. Contoh No. 1, Dusun ..."/>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:.5rem;">
           <input type="text" class="form-input" id="order-rtrw" placeholder="RT/RW (opsional)"/>
           <input type="text" class="form-input" id="order-patokan" placeholder="Patokan (opsional)"/>
         </div>
         <div class="address-suffix">+ Kecamatan Lawang, Kabupaten Malang (otomatis)</div>
       </div>
 
-      <!-- DAFTAR PRODUK DALAM PESANAN -->
       <div class="form-group">
         <label class="form-label">PRODUK DIPESAN <span>*</span></label>
         <div id="order-items-list"></div>
-        <button class="btn btn-secondary btn-sm" onclick="addOrderItem()" style="margin-top:0.75rem;">+ Tambah Produk</button>
+        <button class="btn btn-secondary btn-sm" onclick="addOrderItem()" style="margin-top:.75rem;">+ Tambah Produk</button>
       </div>
 
       <div class="order-total-box" id="order-total-box" style="display:none;">
-        <div style="font-family:'Share Tech Mono',monospace;font-size:0.75rem;color:var(--text-dim);margin-bottom:0.35rem;">TOTAL PESANAN</div>
-        <div id="order-total-price" style="font-family:'Orbitron',sans-serif;font-size:1.3rem;color:var(--accent3);font-weight:700;"></div>
+        <div style="font-family:var(--font-mono);font-size:.7rem;color:var(--dim);margin-bottom:.35rem;letter-spacing:.1em;">TOTAL PESANAN</div>
+        <div id="order-total-price"></div>
       </div>
 
       <div class="form-group">
         <label class="form-label">CATATAN TAMBAHAN</label>
         <textarea class="form-textarea" id="order-note" placeholder="Catatan khusus (opsional)..."></textarea>
       </div>
+
       <div style="display:flex;gap:1rem;margin-top:1.5rem;flex-wrap:wrap;">
         <button class="btn btn-primary" id="btn-submit-order" onclick="submitOrder()">▸ Kirim Pesanan</button>
         <button class="btn btn-secondary" onclick="showPage('marketplace')">← Kembali</button>
@@ -261,18 +281,18 @@
   </div></footer>
 </div>
 
-<!-- ══════════════════════════════ -->
-<!-- PAGE: PESANAN SAYA            -->
-<!-- ══════════════════════════════ -->
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE: PESANAN SAYA                    -->
+<!-- ══════════════════════════════════════ -->
 <div class="page" id="page-pesanan">
   <div class="page-header">
     <div class="section-label">MY ORDERS</div>
     <h1>Pesanan Saya</h1>
-    <p>Riwayat dan status pesanan kamu.</p>
+    <p>Riwayat dan status pesanan kamu secara realtime.</p>
   </div>
   <div class="section" style="padding-top:0;">
     <div id="pesanan-list">
-      <div style="text-align:center;padding:4rem;color:var(--text-dim);font-family:'Share Tech Mono',monospace;font-size:0.8rem;">Memuat pesanan...</div>
+      <div class="loading-state">Memuat pesanan...</div>
     </div>
   </div>
   <footer><div class="footer-inner">
@@ -281,20 +301,20 @@
   </div></footer>
 </div>
 
-<!-- ══════════════════════════════ -->
-<!-- PAGE: BANTUAN                 -->
-<!-- ══════════════════════════════ -->
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE: BANTUAN                         -->
+<!-- ══════════════════════════════════════ -->
 <div class="page" id="page-bantuan">
   <div class="page-header">
     <div class="section-label">SUPPORT</div>
     <h1>Bantuan & Pertanyaan</h1>
-    <p>Pertanyaan akan dijawab admin dan tampil di halaman utama.</p>
+    <p>Pertanyaan akan dijawab admin dan tampil di halaman utama sebagai referensi.</p>
   </div>
   <div class="section" style="padding-top:0;">
     <div class="form-container">
       <div class="form-group">
         <label class="form-label">PERTANYAAN / KENDALA <span>*</span></label>
-        <textarea class="form-textarea" id="qa-question" placeholder="Tulis pertanyaan atau kendala kamu..." style="min-height:140px;"></textarea>
+        <textarea class="form-textarea" id="qa-question" placeholder="Tulis pertanyaan atau kendala kamu di sini..." style="min-height:130px;"></textarea>
       </div>
       <button class="btn btn-primary" id="btn-submit-qa" onclick="submitQuestion()">▸ Kirim Pertanyaan</button>
     </div>
@@ -306,20 +326,26 @@
   </div></footer>
 </div>
 
-<!-- ══════════════════════════════ -->
-<!-- PAGE: DONASI                  -->
-<!-- ══════════════════════════════ -->
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE: DONASI                          -->
+<!-- ══════════════════════════════════════ -->
 <div class="page" id="page-donasi">
   <div class="page-header">
     <div class="section-label">SUPPORT US</div>
     <h1>Dukungan Donasi</h1>
+    <p>Bantu pengembangan HZTM dan project teknologi lokal</p>
   </div>
   <div class="section" style="padding-top:0;">
     <div class="donate-box">
       <div class="donate-icon">⚡</div>
       <div class="donate-title">Dukung HZTM</div>
-      <div class="donate-desc">Donasi Anda membantu pengembangan website, pembelian komponen riset, dan project teknologi lokal Lawang yang lebih baik.</div>
-      <a id="donate-link" href="#" class="btn btn-orange" target="_blank" onclick="handleDonateClick(event)">♥ Donasi Sekarang</a>
+      <div class="donate-desc">
+        Donasi Anda membantu pengembangan website, pembelian komponen untuk riset,
+        dan project teknologi lokal Lawang yang lebih baik. Setiap dukungan sangat berarti bagi kami.
+      </div>
+      <a id="donate-link" href="#" class="btn btn-orange" target="_blank" onclick="handleDonateClick(event)">
+        ♥ Donasi Sekarang
+      </a>
     </div>
   </div>
   <footer><div class="footer-inner">
@@ -329,46 +355,60 @@
   </div></footer>
 </div>
 
-<!-- ══════════════════════════════ -->
-<!-- PAGE: ADMIN                   -->
-<!-- ══════════════════════════════ -->
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE: ADMIN                           -->
+<!-- ══════════════════════════════════════ -->
 <div class="page" id="page-admin">
-  <!-- PERLU LOGIN GOOGLE DULU -->
+
+  <!-- perlu login dulu -->
   <div id="admin-need-login" style="display:none;">
     <div class="admin-login">
       <h2>// LOGIN DULU</h2>
-      <p style="color:var(--text-dim);font-size:0.88rem;text-align:center;margin-bottom:1.5rem;">Kamu perlu login dengan Google terlebih dahulu.</p>
-      <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="loginGoogle()">Masuk dengan Google</button>
-      <button class="btn btn-secondary" style="width:100%;justify-content:center;margin-top:0.75rem;" onclick="showPage('home')">← Kembali</button>
+      <p style="color:var(--dim);font-size:.88rem;text-align:center;margin-bottom:1.5rem;line-height:1.6;">
+        Kamu perlu login dengan Google terlebih dahulu sebelum mengakses admin panel.
+      </p>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="openModal('modal-login')">
+        Masuk dengan Google
+      </button>
+      <button class="btn btn-secondary" style="width:100%;justify-content:center;margin-top:.75rem;" onclick="showPage('home')">
+        ← Kembali
+      </button>
     </div>
   </div>
 
-  <!-- INPUT PASSWORD ADMIN -->
+  <!-- input password -->
   <div id="admin-login-wrap" style="display:none;">
     <div class="admin-login">
       <h2>// ADMIN LOGIN</h2>
-      <p style="color:var(--text-dim);font-size:0.75rem;text-align:center;margin-bottom:1.5rem;font-family:'Share Tech Mono',monospace;">Login sebagai: <span id="admin-login-name" style="color:var(--accent);"></span></p>
+      <p style="color:var(--dim);font-size:.72rem;text-align:center;margin-bottom:1.5rem;font-family:var(--font-mono);">
+        Login sebagai: <span id="admin-login-name" style="color:var(--accent);"></span>
+      </p>
       <div class="form-group">
         <label class="form-label">PASSWORD ADMIN <span>*</span></label>
-        <input type="password" class="form-input" id="admin-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')adminLogin()"/>
+        <input type="password" class="form-input" id="admin-pass" placeholder="••••••••"
+          onkeydown="if(event.key==='Enter')adminLogin()"/>
       </div>
-      <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:0.5rem;" onclick="adminLogin()">▸ Masuk</button>
-      <button class="btn btn-secondary" style="width:100%;justify-content:center;margin-top:0.75rem;" onclick="showPage('home')">← Kembali</button>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:.5rem;" onclick="adminLogin()">
+        ▸ Masuk
+      </button>
+      <button class="btn btn-secondary" style="width:100%;justify-content:center;margin-top:.75rem;" onclick="showPage('home')">
+        ← Kembali
+      </button>
     </div>
   </div>
 
-  <!-- PANEL -->
+  <!-- panel admin -->
   <div id="admin-panel-wrap" style="display:none;">
     <div class="admin-panel" style="padding-top:80px;">
+
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;flex-wrap:wrap;gap:1rem;">
         <div>
           <div class="section-label">ADMIN PANEL</div>
-          <h2 style="font-family:'Orbitron',sans-serif;font-size:1.2rem;">Kelola HZTM</h2>
+          <h2 style="font-family:var(--font-head);font-size:1.1rem;">Kelola HZTM</h2>
         </div>
-        <div style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap;">
-          <!-- Toggle Admin Online -->
-          <div style="display:flex;align-items:center;gap:0.5rem;">
-            <span style="font-family:'Share Tech Mono',monospace;font-size:0.7rem;color:var(--text-dim);">STATUS:</span>
+        <div style="display:flex;gap:.75rem;align-items:center;flex-wrap:wrap;">
+          <div style="display:flex;align-items:center;gap:.5rem;">
+            <span style="font-family:var(--font-mono);font-size:.65rem;color:var(--dim);">STATUS:</span>
             <button class="btn btn-sm" id="admin-toggle-btn" onclick="toggleAdminStatus()">...</button>
           </div>
           <button class="btn btn-secondary btn-sm" onclick="showPage('home')">← Home</button>
@@ -384,38 +424,44 @@
         <button class="admin-tab" onclick="switchAdminTab('pengaturan',this)">Pengaturan</button>
       </div>
 
-      <!-- TAB: PESANAN -->
+      <!-- PESANAN -->
       <div class="admin-section active" id="tab-pesanan">
-        <h3 style="font-family:'Orbitron',sans-serif;font-size:0.85rem;color:var(--accent);margin-bottom:1.5rem;">PESANAN MASUK</h3>
+        <h3 style="font-family:var(--font-head);font-size:.82rem;color:var(--accent);margin-bottom:1.5rem;">PESANAN MASUK</h3>
         <div style="overflow-x:auto;">
           <table class="admin-table">
             <thead><tr>
-              <th>Waktu</th><th>User</th><th>WA</th><th>Produk</th><th>Total</th><th>Alamat</th><th>Status</th><th>Aksi</th>
+              <th>Waktu</th><th>User</th><th>WA</th><th>Produk</th>
+              <th>Total</th><th>Alamat</th><th>Status</th><th>Aksi</th>
             </tr></thead>
-            <tbody id="orders-tbody"><tr><td colspan="8" style="text-align:center;color:var(--text-dim);font-family:'Share Tech Mono',monospace;font-size:0.75rem;">Memuat...</td></tr></tbody>
+            <tbody id="orders-tbody">
+              <tr><td colspan="8" class="table-empty">Memuat...</td></tr>
+            </tbody>
           </table>
         </div>
       </div>
 
-      <!-- TAB: PRODUK -->
+      <!-- PRODUK -->
       <div class="admin-section" id="tab-produk">
-        <h3 style="font-family:'Orbitron',sans-serif;font-size:0.85rem;color:var(--accent);margin-bottom:1.5rem;">DAFTAR PRODUK</h3>
+        <h3 style="font-family:var(--font-head);font-size:.82rem;color:var(--accent);margin-bottom:1.5rem;">DAFTAR PRODUK</h3>
         <div style="overflow-x:auto;">
           <table class="admin-table">
             <thead><tr><th>Kode</th><th>Nama</th><th>Harga</th><th>Stok</th><th>Aksi</th></tr></thead>
-            <tbody id="products-tbody"><tr><td colspan="5" style="text-align:center;color:var(--text-dim);font-family:'Share Tech Mono',monospace;font-size:0.75rem;">Memuat...</td></tr></tbody>
+            <tbody id="products-tbody">
+              <tr><td colspan="5" class="table-empty">Memuat...</td></tr>
+            </tbody>
           </table>
         </div>
       </div>
 
-      <!-- TAB: TAMBAH PRODUK -->
+      <!-- TAMBAH PRODUK -->
       <div class="admin-section" id="tab-tambah-produk">
-        <h3 style="font-family:'Orbitron',sans-serif;font-size:0.85rem;color:var(--accent);margin-bottom:1.5rem;" id="add-product-title">TAMBAH PRODUK BARU</h3>
+        <h3 style="font-family:var(--font-head);font-size:.82rem;color:var(--accent);margin-bottom:1.5rem;" id="add-product-title">TAMBAH PRODUK BARU</h3>
         <input type="hidden" id="edit-product-id"/>
         <div class="admin-form-grid">
           <div class="form-group">
-            <label class="form-label">KODE PRODUK <span>*</span></label>
-            <input type="text" class="form-input" id="p-code" placeholder="Auto: HZTM-001" style="font-family:'Share Tech Mono',monospace;" readonly/>
+            <label class="form-label">KODE PRODUK</label>
+            <input type="text" class="form-input" id="p-code" style="font-family:var(--font-mono);color:var(--accent);background:var(--bg-panel);" readonly/>
+            <div class="form-addon">Kode otomatis — tidak bisa diubah manual</div>
           </div>
           <div class="form-group">
             <label class="form-label">NAMA PRODUK <span>*</span></label>
@@ -438,54 +484,60 @@
           <label class="form-label">FOTO PRODUK</label>
           <div class="upload-area" onclick="document.getElementById('p-img-input').click()">
             <input type="file" id="p-img-input" accept="image/*" onchange="previewImg(event)"/>
-            <div>Klik untuk upload foto (JPG/PNG/WEBP)</div>
+            <div>Klik untuk upload foto (JPG / PNG / WEBP)</div>
             <img id="img-preview"/>
           </div>
           <input type="hidden" id="p-img-data"/>
         </div>
-        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+        <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
           <button class="btn btn-primary" id="btn-save-product" onclick="saveProduct()">▸ Simpan Produk</button>
           <button class="btn btn-secondary" onclick="cancelEdit()">Batal</button>
         </div>
       </div>
 
-      <!-- TAB: Q&A -->
+      <!-- Q&A -->
       <div class="admin-section" id="tab-qa">
-        <h3 style="font-family:'Orbitron',sans-serif;font-size:0.85rem;color:var(--accent);margin-bottom:1.5rem;">PERTANYAAN PENGGUNA</h3>
-        <div id="qa-admin-list"><p style="color:var(--text-dim);font-family:'Share Tech Mono',monospace;font-size:0.75rem;">Memuat...</p></div>
+        <h3 style="font-family:var(--font-head);font-size:.82rem;color:var(--accent);margin-bottom:1.5rem;">PERTANYAAN PENGGUNA</h3>
+        <div id="qa-admin-list">
+          <p class="td-empty">Memuat...</p>
+        </div>
       </div>
 
-      <!-- TAB: PENGATURAN -->
+      <!-- PENGATURAN -->
       <div class="admin-section" id="tab-pengaturan">
-        <h3 style="font-family:'Orbitron',sans-serif;font-size:0.85rem;color:var(--accent);margin-bottom:1.5rem;">PENGATURAN</h3>
-        <div class="form-group" style="max-width:500px;">
+        <h3 style="font-family:var(--font-head);font-size:.82rem;color:var(--accent);margin-bottom:1.5rem;">PENGATURAN</h3>
+
+        <div class="form-group" style="max-width:480px;">
           <label class="form-label">GANTI PASSWORD ADMIN</label>
           <input type="password" class="form-input" id="new-pass" placeholder="Password baru (min 4 karakter)"/>
-          <input type="password" class="form-input" id="confirm-pass" placeholder="Konfirmasi password baru" style="margin-top:0.5rem;"/>
-          <div class="form-addon" style="margin-bottom:0.5rem;">Semua admin akan otomatis logout setelah password diganti.</div>
+          <input type="password" class="form-input" id="confirm-pass" placeholder="Konfirmasi password" style="margin-top:.5rem;"/>
+          <div class="form-addon" style="margin-bottom:.75rem;">Semua admin akan otomatis logout setelah password diganti.</div>
           <button class="btn btn-secondary btn-sm" onclick="changePassword()">Ganti Password</button>
         </div>
-        <div class="form-group" style="max-width:500px;margin-top:2rem;">
+
+        <div class="form-group" style="max-width:480px;margin-top:2rem;">
+          <label class="form-label">NOMOR WHATSAPP ADMIN</label>
+          <input type="text" class="form-input" id="admin-wa-input" placeholder="081235487980"/>
+          <div class="form-addon">Nomor ini diberikan ke pembeli setelah pesanan dikonfirmasi</div>
+          <button class="btn btn-secondary btn-sm" onclick="saveAdminWa()" style="margin-top:.75rem;">Simpan Nomor</button>
+        </div>
+
+        <div class="form-group" style="max-width:480px;margin-top:2rem;">
           <label class="form-label">BACKGROUND / HEADER IMAGE (URL)</label>
           <input type="text" class="form-input" id="bg-url" placeholder="https://i.imgur.com/xxx.jpg"/>
           <div class="form-addon">URL gambar untuk background halaman utama</div>
-          <button class="btn btn-secondary btn-sm" onclick="saveBgUrl()" style="margin-top:0.75rem;">Simpan Background</button>
+          <button class="btn btn-secondary btn-sm" onclick="saveBgUrl()" style="margin-top:.75rem;">Simpan Background</button>
         </div>
-        <div class="form-group" style="max-width:500px;margin-top:2rem;">
+
+        <div class="form-group" style="max-width:480px;margin-top:2rem;">
           <label class="form-label">LINK DONASI</label>
           <input type="text" class="form-input" id="donate-url-input" placeholder="https://saweria.co/..."/>
-          <button class="btn btn-secondary btn-sm" onclick="saveDonateUrl()" style="margin-top:0.75rem;">Simpan Link Donasi</button>
-        </div>
-        <div class="form-group" style="max-width:500px;margin-top:2rem;">
-          <label class="form-label">NOMOR WHATSAPP ADMIN</label>
-          <input type="text" class="form-input" id="admin-wa-input" placeholder="081235487980"/>
-          <div class="form-addon">Nomor ini akan diberikan ke pembeli setelah pesanan dikonfirmasi</div>
-          <button class="btn btn-secondary btn-sm" onclick="saveAdminWa()" style="margin-top:0.75rem;">Simpan Nomor</button>
+          <button class="btn btn-secondary btn-sm" onclick="saveDonateUrl()" style="margin-top:.75rem;">Simpan Link Donasi</button>
         </div>
       </div>
 
-    </div>
-  </div>
+    </div><!-- /admin-panel -->
+  </div><!-- /admin-panel-wrap -->
 
   <footer><div class="footer-inner">
     <div class="footer-copy">© HZTM 2026 — Admin Panel</div>
